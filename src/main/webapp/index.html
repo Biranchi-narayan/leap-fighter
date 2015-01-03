@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Leap Motion Fighter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Leap Motion Fighter">
+    <meta name="author" content="Christoph Deppisch">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <script src="javascript/support/jquery.js"></script>
+    <script src="javascript/support/underscore.js"></script>
+    <script src="javascript/support/leap.js"></script>
+
+    <script src="javascript/leap-fighter.js"></script>
+
+		<link type="text/css" href="styles/leap-fighter.css" rel="stylesheet"/>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="stage">
+      <div id="controls">
+        <span id="position"></span><br/>
+        <span id="rotation"></span><br/>
+        <span id="laser"></span>
+      </div>
+
+			<svg xmlns="http://www.w3.org/2000/svg" width="450" height="450" viewBox="0 0 600 300">
+					<g id="fighter">
+            <circle class="crosshair" cx="275" cy="45" r="10"/>
+            <circle class="crosshair" cx="275" cy="45" r="15"/>
+            <circle class="crosshair bullseye" cx="275" cy="45" r="2"/>
+            <line class="crosshair" x1="250" y1="45" x2="265" y2="45"/>
+            <line class="crosshair" x1="285" y1="45" x2="300" y2="45"/>
+            <line class="crosshair" x1="275" y1="20" x2="275" y2="35"/>
+            <line class="crosshair" x1="275" y1="55" x2="275" y2="65"/>
+
+            <line id="laser_left" class="laser" x1="275" y1="45" x2="145" y2="125" stroke-width="0">
+              <animate attributeType="XML" attributeName="y1"
+                   begin="0s" dur=".3s"
+                   from="125" to="45"
+                   repeatCount="indefinite" />
+              <animate attributeType="XML" attributeName="x1"
+                       begin="0s" dur=".3s"
+                       from="145" to="275"
+                       repeatCount="indefinite" />
+              <animate attributeType="XML" attributeName="opacity"
+                       begin="0s" dur=".3s"
+                       from="0" to="1"
+                       repeatCount="indefinite" />
+            </line>
+
+            <line id="laser_right" class="laser" x1="275" y1="45" x2="405" y2="125" stroke-width="0">
+              <animate attributeType="XML" attributeName="y1"
+                       begin="0s" dur=".3s"
+                       from="125" to="45"
+                       repeatCount="indefinite" />
+              <animate attributeType="XML" attributeName="x1"
+                       begin="0s" dur=".3s"
+                       from="405" to="275"
+                       repeatCount="indefinite" />
+            </line>
+
+						<path class="fighter"
+									d="M 388.00,12.00
+           C 388.00,12.00 383.42,35.00 383.42,35.00 383.42,35.00 369.58,107.00 369.58,107.00 369.58,107.00 366.00,126.00 366.00,126.00 366.00,126.00 498.00,126.00 498.00,126.00 498.00,126.00 536.00,126.00 536.00,126.00
+             536.00,126.00 555.00,127.00 555.00,127.00 555.00,127.00 492.00,134.72 492.00,134.72 492.00,134.72 461.00,138.00 461.00,138.00 461.00,138.00 420.00,139.00 420.00,139.00 420.00,139.00 405.00,140.15 405.00,140.15
+             405.00,140.15 378.00,140.15 378.00,140.15 378.00,140.15 364.00,136.00 364.00,136.00 364.00,136.00 356.00,174.00 356.00,174.00 356.00,174.00 337.00,127.00 337.00,127.00
+             337.00,127.00 293.00,158.00 293.00,158.00 289.46,160.52 278.76,169.17 275.00,169.17 271.35,169.17 261.40,161.13 258.00,158.71 258.00,158.71 230.00,138.71 230.00,138.71
+             224.77,134.99 219.06,130.01 213.00,128.00 213.00,128.00 206.71,152.00 206.71,152.00 206.71,152.00 200.00,173.00 200.00,173.00 200.00,173.00 189.00,137.00 189.00,137.00 189.00,137.00 176.00,140.59 176.00,140.59
+             176.00,140.59 150.00,140.00 150.00,140.00 150.00,140.00 133.00,139.00 133.00,139.00 133.00,139.00 93.00,138.00 93.00,138.00 93.00,138.00 52.00,133.15 52.00,133.15
+             52.00,133.15 21.00,129.15 21.00,129.15 21.00,129.15 1.00,126.00 1.00,126.00 1.00,126.00 185.00,126.00 185.00,126.00 185.00,126.00 175.02,91.00 175.02,91.00
+             175.02,91.00 159.34,39.00 159.34,39.00 159.34,39.00 151.86,14.00 151.86,14.00 151.86,14.00 150.00,3.00 150.00,3.00 150.00,3.00 190.14,77.00 190.14,77.00
+             190.14,77.00 215.00,121.00 215.00,121.00 219.13,116.39 225.86,112.25 231.00,108.58 231.00,108.58 259.00,88.58 259.00,88.58 262.64,85.97 271.70,78.20 276.00,78.92
+             279.18,79.45 291.58,88.97 295.00,91.42 295.00,91.42 338.00,122.00 338.00,122.00 338.00,122.00 357.15,76.00 357.15,76.00 357.15,76.00 389.00,0.00 389.00,0.00
+             389.00,0.00 388.00,12.00 388.00,12.00 Z
+           M 292.00,98.00
+           C 289.20,96.16 278.55,89.04 276.00,88.64 272.23,88.04 265.32,93.34 262.00,95.42 262.00,95.42 225.00,120.00 225.00,120.00 225.00,120.00 294.00,120.00 294.00,120.00
+             294.00,120.00 325.00,119.00 325.00,119.00 325.00,119.00 292.00,98.00 292.00,98.00 Z" />
+					</g>
+			</svg>
+    </div>
+  </body>
+</html>
